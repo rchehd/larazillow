@@ -1,11 +1,14 @@
-<script setup>
-
-</script>
-
 <template>
-
+  <div>
+    <ListingAddress :listing="listing" />
+  </div>
 </template>
 
-<style scoped>
+<script setup>
+import ListingAddress from "@/Components/ListingAddress.vue";
 
-</style>
+defineProps({
+  'listing': Object,
+})
+
+</script>
