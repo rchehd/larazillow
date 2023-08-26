@@ -15,8 +15,8 @@ const flashSuccess = computed(
 </script>
 
 <template>
-  <Link href="/">Main Page</Link>&nbsp;
-  <Link href="/hello">Show Page</Link>
+  <Link href="/listing">Listing</Link>&nbsp;
+  <Link href="/listing/create">New listing</Link>
 <!--  <div>The page with time {{ timer }}</div>-->
   <div v-if="flashSuccess" class="success">
     {{ flashSuccess }}
