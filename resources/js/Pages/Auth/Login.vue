@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent="form">
+  <form @submit.prevent="login">
     <div class="w-1/2 mx-auto">
       <div>
         <label for="email" class="label">E-mail (username)</label>
@@ -11,7 +11,7 @@
         <input id="password" v-model="form.password" type="password" class="input" />
       </div>
       <div class="mt-4">
-        <button class="btn-primary w-full">Login</button>
+        <button class="btn-primary w-full" type="submit">Login</button>
       </div>
     </div>
   </form>
