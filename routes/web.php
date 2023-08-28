@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthContrtoller;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\ListingController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserAccountController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,3 +31,6 @@ Route::resource('listing', ListingController::class)
 Route::get('login', [AuthContrtoller::class, 'create'])->name('login');
 Route::post('login', [AuthContrtoller::class, 'store'])->name('login.store');
 Route::delete('logout', [AuthContrtoller::class, 'destroy'])->name('logout');
+
+
+Route::resource('user-account', UserAccountController::class)->only('create');
