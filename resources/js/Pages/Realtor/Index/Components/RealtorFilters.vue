@@ -10,19 +10,61 @@
         />
         <label for="deleted">Delete</label>
       </div>
+      <div>
+        <select v-model="filterForm.by" class="input-filter-l w-24">
+          <option value="created_at">Added</option>
+          <option value="price">Price</option>
+        </select>
+        <select v-model="filterForm.order" class="input-filter-r w-24">
+          <option 
+            v-for="option in sortOptions" 
+            :key="option.value"
+            :value="option.value"
+          >
+            {{ option.label }}
+          </option>
+        </select>
+      </div>
     </div>
   </form>
 </template>
 
 
 <script setup>
-import { reactive, watch } from 'vue'
+import { reactive, watch, computed } from 'vue'
 import { router } from '@inertiajs/vue3'
-import { debounce } from "lodash";
+import { debounce } from 'lodash'
+
+const sortLabels = {
+  created_at: [
+    {
+      label: 'Latest',
+      value: 'desc',
+    },
+    {
+      label: 'Oldest',
+      value: 'asc',
+    },
+  ],
+  price: [
+    {
+      label: 'Pricey',
+      value: 'desc',
+    },
+    {
+      label: 'Cheapest',
+      value: 'asc',
+    },
+  ],
+}
 
 const filterForm = reactive({
   deleted: false,
+  by: 'created_at',
+  order: 'desc',
 })
+
+const sortOptions = computed(() => sortLabels[filterForm.by])
 // reactive / ref / computed
 watch(filterForm, debounce(() => router.get(
   route('realtor.listing.index'),
