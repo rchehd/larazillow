@@ -22,11 +22,7 @@ Route::get('/', [IndexController::class, 'index']);
 Route::get('/hello', [IndexController::class, 'show'])->middleware('auth');
 
 Route::resource('listing', ListingController::class)
-  ->only(['create', 'store', 'edit', 'update'])
-  ->middleware('auth');
-
-Route::resource('listing', ListingController::class)
-  ->except(['create', 'store', 'edit', 'update', 'destroy']);
+  ->only(['index', 'show']);
 
 // User session routes.
 Route::get('login', [AuthContrtoller::class, 'create'])->name('login');
@@ -41,5 +37,5 @@ Route::prefix('realtor')
     ->middleware('auth')
     ->group(function () {
         Route::resource('listing', RealtorListingController::class)
-            ->only('index', 'destroy');
+            ->only('index', 'destroy', 'edit', 'update', 'create', 'store');
     });
