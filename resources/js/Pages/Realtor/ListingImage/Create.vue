@@ -23,8 +23,20 @@
   <Box v-if="listing.images.length">
     <template #header>Current Listing Image</template>
     <section class="mt-4 grid grid-cols-3 gap-4">
-      <div v-for="image in listing.images" :key="image.id">
+      <div 
+        v-for="image in listing.images" 
+        :key="image.id"
+        class="flex flex-col justify-between"
+      >
         <img :src="image.src" class="rounded-md w-full" />
+        <Link 
+          :href="route('realtor.listing.image.destroy', {listing: props.listing.id, image: image.id})" 
+          as="button"
+          method="delete"
+          class="mt-2 btn-outline text-xs"
+        >
+          Delete
+        </Link>
       </div>
     </section>
   </Box>
@@ -32,7 +44,7 @@
 
 <script setup>
 import Box from '@/Components/UI/Box.vue'
-import {useForm} from '@inertiajs/vue3'
+import {Link,useForm} from '@inertiajs/vue3'
 import {computed} from 'vue'
 import NProgress from 'nprogress'
 import { router } from '@inertiajs/vue3'
