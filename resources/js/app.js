@@ -6,13 +6,19 @@ import {InertiaProgress} from '@inertiajs/progress'
 import '../css/app.css'
 
 InertiaProgress.init({
-  delay: 0,
-  color: '#29d',
+  delay: 250,
+  color: '#325',
   includeCSS: true,
   showSpinner: true,
 })
 
 createInertiaApp({
+  progress: {
+    delay: 250,
+    color: '#29d',
+    includeCSS: true,
+    showSpinner: true,
+  },
   resolve: async (name) => {
     const pages = import.meta.glob('./Pages/**/*.vue', { eager: true })
     const page = await pages[`./Pages/${name}.vue`]
