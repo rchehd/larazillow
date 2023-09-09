@@ -1,7 +1,21 @@
 <template>
   <div class="flex flex-col-reverse md:grid  grid-cols-12 gap-4">
-    <Box class="md:col-span-7 flex items-center w-full">
-      <div class="w-full text-center font-medium text-gray-500">No images</div>
+    <Box class="md:col-span-7 flex items-center justify-center w-full">
+      <div
+        v-if="listing.images.length"
+      >
+        <carousel :items-to-show="1">
+          <slide v-for="image in listing.images" :key="image.id">
+            <img :src="image.src" class="w-full"/>
+          </slide>
+
+          <template #addons>
+            <navigation />
+            <pagination />
+          </template>
+        </carousel>
+      </div>
+      <div v-else class="w-full text-center font-medium text-gray-500">No images</div>
     </Box>
     <div class="md:col-span-5 flex flex-col gap-4">
       <Box>
@@ -12,7 +26,7 @@
         <ListingSpace :listing="listing" class="text-lg" />
         <ListingAddress :listing="listing" class="text-gray-500" />
       </Box>
-      <Box>
+      <Box class="h-full">
         <template #header>
           Monthly payment
         </template>
@@ -70,7 +84,8 @@ import ListingSpace from '@/Components/ListingSpace.vue'
 import Box from '@/Components/UI/Box.vue'
 import {ref} from 'vue'
 import {useMonthlyPayment} from '@/Composables/useMonthlyPayment.js'
-
+import 'vue3-carousel/dist/carousel.css'
+import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel'
 
 const interestRate = ref(2.5)
 const duration = ref(25)
