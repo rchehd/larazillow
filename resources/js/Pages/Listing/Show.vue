@@ -6,7 +6,7 @@
       >
         <carousel :items-to-show="1">
           <slide v-for="image in listing.images" :key="image.id">
-            <img :src="image.src" class="w-full"/>
+            <img :src="image.src" class="w-full" />
           </slide>
 
           <template #addons>
@@ -73,7 +73,7 @@
           </div>
         </div>
       </Box>
-      <MakeOffer :listing-id="listing.id" :price="listing.price"/>
+      <MakeOffer v-if="user" :listing-id="listing.id" :price="listing.price" />
     </div>
   </div>
 </template>
@@ -83,11 +83,12 @@ import ListingAddress from '@/Components/ListingAddress.vue'
 import Price from '@/Components/Price.vue'
 import ListingSpace from '@/Components/ListingSpace.vue'
 import Box from '@/Components/UI/Box.vue'
-import {ref} from 'vue'
+import {computed, ref} from 'vue'
 import {useMonthlyPayment} from '@/Composables/useMonthlyPayment.js'
 import 'vue3-carousel/dist/carousel.css'
 import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel'
-import MakeOffer from "@/Pages/Listing/Show/Components/MakeOffer.vue";
+import MakeOffer from '@/Pages/Listing/Show/Components/MakeOffer.vue'
+import {usePage} from '@inertiajs/vue3'
 
 const interestRate = ref(2.5)
 const duration = ref(25)
@@ -98,4 +99,8 @@ const props = defineProps({
 
 const { monthlyPayment, totalPaid, totalInterest  } = useMonthlyPayment( props.listing.price, interestRate, duration)
 
+const page = usePage()
+const user = computed(
+  () => page.props.user,
+)
 </script>

@@ -2,7 +2,7 @@
   <Box>
     <template #header>Make an offer</template>
     <div>
-      <form>
+      <form @submit.prevent="makeOffer">
         <input v-model.number="form.amount" type="text" class="input" />
         <input
           v-model.number="form.amount"
@@ -29,7 +29,7 @@ import Box from '@/Components/UI/Box.vue'
 import Price from '@/Components/Price.vue'
 import {useForm} from '@inertiajs/vue3'
 import {computed} from 'vue'
-import {round} from "lodash/math.js";
+import {round} from 'lodash/math.js'
 
 const props = defineProps({
   listingId: Number,
@@ -42,4 +42,12 @@ const form = useForm({
 const difference = computed(() => form.amount - props.price)
 const min = computed(() => round(props.price / 2, 0))
 const max = computed(() => props.price * 2)
+
+const makeOffer = () => form.post(
+  route('listing.offer.store', {listing: props.listingId}),
+  {
+    preserveScroll: true,
+    preserveState: true,
+  },
+)
 </script>
