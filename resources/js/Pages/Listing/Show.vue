@@ -73,6 +73,7 @@
           </div>
         </div>
       </Box>
+      <MakeOffer :listing-id="listing.id" :price="listing.price"/>
     </div>
   </div>
 </template>
@@ -86,6 +87,7 @@ import {ref} from 'vue'
 import {useMonthlyPayment} from '@/Composables/useMonthlyPayment.js'
 import 'vue3-carousel/dist/carousel.css'
 import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel'
+import MakeOffer from "@/Pages/Listing/Show/Components/MakeOffer.vue";
 
 const interestRate = ref(2.5)
 const duration = ref(25)
