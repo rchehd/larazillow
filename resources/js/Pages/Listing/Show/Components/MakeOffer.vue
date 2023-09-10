@@ -28,8 +28,9 @@
 import Box from '@/Components/UI/Box.vue'
 import Price from '@/Components/Price.vue'
 import {useForm} from '@inertiajs/vue3'
-import {computed} from 'vue'
+import {computed, watch} from 'vue'
 import {round} from 'lodash/math.js'
+import {debounce} from 'lodash'
 
 const props = defineProps({
   listingId: Number,
@@ -50,4 +51,11 @@ const makeOffer = () => form.post(
     preserveState: true,
   },
 )
+
+const emit = defineEmits(['offerUpdated'])
+
+
+watch(
+  () => form.amount,
+  debounce((value) => emit('offerUpdated', value)), 200)
 </script>
