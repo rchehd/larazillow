@@ -76,4 +76,9 @@ class Listing extends Model
             );
 
     }
+
+    public function offers(): HasMany
+    {
+      return $this->hasMany(Offer::class, 'listing_id');
+    }
 }
