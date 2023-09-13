@@ -11,7 +11,13 @@
     >
       <div class="flex flex-col justify-between md:flex-row gap-2 md:items-center">
         <div :class="{'opacity-25': listing.deleted_at}">
-          <div class="xl:flex items-center gap-2">
+          <div
+            v-if="listing.sold_at != null"
+            class="text-xs font-bold uppercase border border-dashed p-1 border-green-300 text-green-500 dark:border-green-600 dark:text-green-600 inline-block rounded-md mb-2"
+          >
+            sold
+          </div>
+          <div class="items-center gap-2">
             <Price :price="listing.price" class="text-2xl font-medium" />
             <ListingSpace :listing="listing" />
           </div>
