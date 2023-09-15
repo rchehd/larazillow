@@ -1,9 +1,7 @@
 <template>
   <div class="flex flex-col-reverse md:grid  grid-cols-12 gap-4">
-    <Box class="md:col-span-7 flex items-center justify-center w-full">
-      <div
-        v-if="listing.images.length"
-      >
+    <Box v-if="listing.images.length" class="md:col-span-7 flex items-center justify-center w-full">
+      <div>
         <carousel :items-to-show="1">
           <slide v-for="image in listing.images" :key="image.id">
             <img :src="image.src" class="w-full" />
@@ -15,8 +13,10 @@
           </template>
         </carousel>
       </div>
-      <div v-else class="w-full text-center font-medium text-gray-500">No images</div>
     </Box>
+    <EmptyState v-else class="md:col-span-7 flex items-center justify-center w-full">
+      <div class="w-full text-center font-medium text-gray-500">No images</div>
+    </EmptyState>
     <div class="md:col-span-5 flex flex-col gap-4">
       <Box>
         <template #header>
@@ -96,6 +96,7 @@ import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel'
 import MakeOffer from '@/Pages/Listing/Show/Components/MakeOffer.vue'
 import {usePage} from '@inertiajs/vue3'
 import OfferMade from "@/Pages/Listing/Show/Components/OfferMade.vue";
+import EmptyState from "@/Components/UI/EmptyState.vue";
 
 const interestRate = ref(2.5)
 const duration = ref(25)
