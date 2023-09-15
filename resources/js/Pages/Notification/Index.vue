@@ -23,12 +23,15 @@
         <!--        {{ notification }}-->
       </div>
       <div>
-        <button
+        <Link
           v-if="!notification.read_at"
+          :href="route('notification.seen', {notification: notification.id})"
+          as="button"
+          method="put"
           class="btn-outline text-xs font-medium uppercase"
         >
           Mark as read
-        </button>
+        </Link>
       </div>
     </div>
   </section>
