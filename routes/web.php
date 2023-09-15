@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthContrtoller;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\ListingController;
 use App\Http\Controllers\ListingOfferController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\RealtorListingAcceptOfferController;
 use App\Http\Controllers\RealtorListingImageController;
 use Illuminate\Support\Facades\Route;
@@ -57,7 +58,10 @@ Route::prefix('realtor')
           );
 ;    });
 
-
 Route::resource('listing.offer', ListingOfferController::class)
   ->middleware('auth')
   ->only(['store']);
+
+Route::resource('notification', NotificationController::class)
+  ->middleware('auth')
+  ->only('index');
