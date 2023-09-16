@@ -39,7 +39,7 @@ Route::resource('user-account', UserAccountController::class)->only('create', 's
 
 Route::prefix('realtor')
     ->name('realtor.')
-    ->middleware('auth')
+    ->middleware(['auth', 'verified'])
     ->group(function () {
         Route::name('listing.restore')
             ->put(
@@ -73,3 +73,15 @@ Route::name('notification.seen')
     NotificationSeenController::class
   )
   ->middleware('auth');
+
+Route::get('/email/verify', function () {
+  return inertia('Auth/VerifyEmail');
+})->middleware('auth')->name('verification.notice');
+
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
+
+Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+  $request->fulfill();
+
+  return redirect()->route('listing.index')->with('success', 'Email was verified!');
+})->middleware(['auth', 'signed'])->name('verification.verify');
